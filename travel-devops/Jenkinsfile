@@ -5,25 +5,25 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    credentialsId: 'new-gitea',
-                    url: 'https://gitea.dev.bodnarescu.ro/Mircea05/ProiectDev.git'
+                checkout scm
             }
-       stage('Build Docker Images') {
-    steps {
-        dir('travel-devops') {
-            sh 'docker compose build'
         }
-    }
-}
 
-stage('Deploy') {
-    steps {
-        dir('travel-devops') {
-            sh 'docker compose up -d'
+        stage('Build Docker Images') {
+            steps {
+                dir('travel-devops') {
+                    sh 'docker compose build'
+                }
+            }
         }
-    }
-}
+
+        stage('Deploy') {
+            steps {
+                dir('travel-devops') {
+                    sh 'docker compose up -d'
+                }
+            }
+        }
 
     }
 }
