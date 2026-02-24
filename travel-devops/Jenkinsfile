@@ -5,7 +5,9 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://gitea.dev.bodnarescu.ro/Mircea05/ProiectDev.git'
+                git branch: 'main',
+                    credentialsId: 'new-gitea',
+                    url: 'https://gitea.dev.bodnarescu.ro/Mircea05/ProiectDev.git'
             }
         }
 
