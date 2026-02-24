@@ -25,9 +25,8 @@ services:
       - backend
 
   prometheus:
-    image: prom/prometheus
-    volumes:
-      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    build:
+      context: ./monitoring
     ports:
       - "9090:9090"
     depends_on:
