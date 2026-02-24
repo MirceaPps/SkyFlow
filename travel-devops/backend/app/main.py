@@ -3,9 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
 from .models import Flight
 from .routers import flights
+from prometheus_fastapi_instrumentator import Instrumentator
 import time
 
 app = FastAPI()
+
+Instrumentator().instrument(app).expose(app)
 
 # 🔥 CORS pentru frontend (localhost:3000)
 app.add_middleware(

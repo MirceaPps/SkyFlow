@@ -12,7 +12,8 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 dir('travel-devops') {
-                    sh 'docker compose build'
+                      sh 'docker compose down'
+            	      sh 'docker compose up -d --build'
                 }
             }
         }
