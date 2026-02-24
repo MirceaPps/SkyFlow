@@ -9,18 +9,21 @@ pipeline {
                     credentialsId: 'new-gitea',
                     url: 'https://gitea.dev.bodnarescu.ro/Mircea05/ProiectDev.git'
             }
+       stage('Build Docker Images') {
+    steps {
+        dir('travel-devops') {
+            sh 'docker compose build'
         }
+    }
+}
 
-        stage('Build Docker Images') {
-            steps {
-                sh 'docker compose build'
-            }
+stage('Deploy') {
+    steps {
+        dir('travel-devops') {
+            sh 'docker compose up -d'
         }
+    }
+}
 
-        stage('Deploy') {
-            steps {
-                sh 'docker compose up -d'
-            }
-        }
     }
 }
