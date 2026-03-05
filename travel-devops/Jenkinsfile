@@ -1,7 +1,7 @@
 pipeline {
 agent any
 
-```
+
 stages {
 
     stage('Checkout') {
@@ -12,22 +12,23 @@ stages {
 
     stage('Build Docker Images') {
         steps {
-            sh '''
-            docker compose down
-            docker compose up -d --build
-            '''
+            dir('travel-devops') {
+                sh 'docker compose down'
+                sh 'docker compose up -d --build'
+            }
         }
     }
 
     stage('Deploy') {
         steps {
-            sh '''
-            docker compose up -d
-            '''
+            dir('travel-devops') {
+                sh 'docker compose up -d'
+            }
         }
     }
 
 }
-```
+
 
 }
+
