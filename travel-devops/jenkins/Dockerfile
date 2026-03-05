@@ -6,12 +6,18 @@ RUN apt-get update && \
     apt-get install -y docker.io docker-compose && \
     apt-get clean
 
-USER jenkins
-
-USER root
-
 RUN apt-get update && \
-    apt-get install -y ansible git python3-pip && \
-    apt-get clean
+    apt-get install -y \
+    ansible \
+    git \
+    curl \
+    python3 \
+    python3-pip
+
+RUN apt-get install -y wget apt-transport-https gnupg lsb-release && \
+    wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | apt-key add - && \
+    echo "deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/trivy.list && \
+    apt-get update && \
+    apt-get install -y trivy
 
 USER jenkins
