@@ -46,7 +46,7 @@ services:
     ports:
       - "9093:9093"
     volumes:
-      - ./monitoring/alerts.yml:/etc/alertmanager/alertmanager.yml
+      - ./monitoring/alertmanager.yml:/etc/alertmanager/alertmanager.yml
 
 volumes:
   postgres_data:
