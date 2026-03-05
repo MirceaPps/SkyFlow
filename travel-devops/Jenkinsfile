@@ -1,30 +1,27 @@
 pipeline {
-    agent any
+agent any
 
-    stages {
+```
+stages {
 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
+    stage('Checkout') {
+        steps {
+            checkout scm
         }
-
-        stage('Build Docker Images') {
-            steps {
-                dir('travel-devops') {
-                      sh 'docker compose down'
-            	      sh 'docker compose up -d --build'
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                dir('travel-devops') {
-                    sh 'docker compose up -d'
-                }
-            }
-        }
-
     }
+
+    stage('Build & Deploy Containers') {
+        steps {
+            sh '''
+            cd /home/mircea/ProiectDev/travel-devops
+            docker compose down
+            docker compose up -d --build
+            '''
+        }
+    }
+
 }
+```
+
+}
+
