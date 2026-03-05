@@ -1,0 +1,25 @@
+pipeline {
+agent any
+
+```
+stages {
+
+    stage('Checkout Code') {
+        steps {
+            checkout scm
+        }
+    }
+
+    stage('Health Checks') {
+        steps {
+            sh '''
+            cd /home/mircea/ProiectDev/travel-devops
+            ansible-playbook ansible/playbooks/health_checks.yml -i ansible/inventory/host
+            '''
+        }
+    }
+
+}
+```
+
+}
