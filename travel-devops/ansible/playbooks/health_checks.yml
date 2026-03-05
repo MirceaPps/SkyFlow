@@ -1,0 +1,12 @@
+- name: Check container health
+  hosts: devops
+
+  tasks:
+
+    - name: Get running containers
+      command: docker ps
+      register: containers
+
+    - name: Print containers
+      debug:
+        var: containers.stdout

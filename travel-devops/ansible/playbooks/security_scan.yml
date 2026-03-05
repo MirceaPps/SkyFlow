@@ -1,0 +1,11 @@
+- name: Security scan Docker images
+  hosts: devops
+  become: true
+
+  tasks:
+
+    - name: Scan backend image
+      command: trivy image travel-devops-backend
+
+    - name: Scan frontend image
+      command: trivy image travel-devops-frontend

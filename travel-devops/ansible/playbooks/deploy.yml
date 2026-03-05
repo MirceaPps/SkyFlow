@@ -1,0 +1,21 @@
+- name: Deploy Docker stack
+  hosts: devops
+  become: true
+
+  tasks:
+
+    - name: Pull latest code
+      git:
+        repo: https://gitea.dev.bodnarescu.ro/Mircea05/ProiectDev.git
+        dest: /opt/travel-devops
+        version: main
+
+    - name: Build Docker containers
+      command: docker compose build
+      args:
+        chdir: /opt/travel-devops
+
+    - name: Start containers
+      command: docker compose up -d
+      args:
+        chdir: /opt/travel-devops

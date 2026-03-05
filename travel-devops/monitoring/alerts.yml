@@ -1,0 +1,27 @@
+groups:
+  - name: container-alerts
+    rules:
+
+      - alert: HighCPUUsage
+        expr: sum(rate(container_cpu_usage_seconds_total[1m])) > 0.8
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage detected"
+
+      - alert: HighMemoryUsage
+        expr: container_memory_usage_bytes > 800000000
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Container memory usage is high"
+
+      - alert: BackendDown
+        expr: up{job="backend"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Backend service is down"
