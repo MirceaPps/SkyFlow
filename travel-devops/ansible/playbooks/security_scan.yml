@@ -1,11 +1,16 @@
 - name: Security scan Docker images
   hosts: devops
-  become: true
+  #become: true
 
   tasks:
 
     - name: Scan backend image
       command: trivy image travel-devops-backend
+      register: backend_scan
 
+    - name: Debug backend
+      ansible.builtin.debug:
+        msg: "{{ backend_scan }}"
+        
     - name: Scan frontend image
       command: trivy image travel-devops-frontend
