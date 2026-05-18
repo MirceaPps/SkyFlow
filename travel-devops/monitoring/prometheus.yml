@@ -8,7 +8,7 @@ scrape_configs:
 
   - job_name: 'cadvisor'
     static_configs:
-      - targets: ['172.17.0.1:8082']
+      - targets: ['host.docker.internal:8082']
 
 rule_files:
   - alerts.yml
