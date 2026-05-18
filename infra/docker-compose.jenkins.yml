@@ -30,12 +30,10 @@ services:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
       - /sys:/sys:ro
-      - /var/lib/docker:/var/lib/docker:ro
-    
 
-    privileged: true
+  privileged: true
 
-    restart: unless-stopped
+  restart: unless-stopped
 
 
 volumes:
