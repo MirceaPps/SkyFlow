@@ -37,7 +37,7 @@ services:
     ports:
       - "3001:3000"
     volumes:
-    - grafana_data:/var/lib/grafana    
+      - grafana_data:/var/lib/grafana    
     depends_on:
       - prometheus
 
@@ -58,7 +58,6 @@ services:
     image: grafana/promtail:2.9.0
     volumes:
       - /var/log:/var/log
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - ./monitoring/promtail-config.yml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
     depends_on:
