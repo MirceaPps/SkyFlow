@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
   const [flights, setFlights] = useState([]);
@@ -34,45 +35,57 @@ function App() {
     fetchFlights();
   };
 
-  return (
-    <div style={{ padding: "40px" }}>
-      <h1>Travel DevOps ✈️</h1>
+return (
+  <div className="app-container">
+    <div className="card">
 
-      <h2>Add Flight</h2>
-      <form onSubmit={addFlight}>
+      <h1>✈ Travel DevOps</h1>
+
+      <p className="subtitle">
+        Modern Flight Management Platform
+      </p>
+
+      <div className="form">
         <input
-          type="text"
           placeholder="Origin"
           value={origin}
           onChange={(e) => setOrigin(e.target.value)}
         />
+
         <input
-          type="text"
           placeholder="Destination"
           value={destination}
           onChange={(e) => setDestination(e.target.value)}
         />
+
         <input
-          type="number"
           placeholder="Price"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />
-        <button type="submit">Add</button>
-      </form>
 
-      <h2>Flights</h2>
-      {flights.length === 0 ? (
-        <p>No flights available</p>
-      ) : (
-        flights.map((flight) => (
-          <div key={flight.id}>
-            {flight.origin} → {flight.destination} | €{flight.price}
+        <button onClick={addFlight}>
+          Add Flight
+        </button>
+      </div>
+
+      <div className="flight-list">
+        {flights.map((flight) => (
+          <div className="flight-card" key={flight.id}>
+            <div className="flight-route">
+              {flight.origin} ✈ {flight.destination}
+            </div>
+
+            <div className="flight-price">
+              €{flight.price}
+            </div>
           </div>
-        ))
-      )}
+        ))}
+      </div>
+
     </div>
-  );
+  </div>
+  )
 }
 
 export default App;
