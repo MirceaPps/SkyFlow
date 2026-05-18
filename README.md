@@ -53,16 +53,24 @@ Aplicația este formată din:
 
 # Structura proiectului
 
+# Structura proiectului
+
+```text
 ProjectDev/
 │
-├── backend/
-├── frontend/
-├── monitoring/
-├── ansible/
 ├── infra/
-├── nginx/
-├── Jenkinsfile
-├── Jenkinsfile.healthchecks
-├── Jenkinsfile.security
-├── docker-compose.yml
-└── README.md
+│   ├── docker-compose.jenkins.yml
+│   └── Dockerfile.jenkins
+│
+└── travel-devops/
+    ├── ansible/
+    ├── backend/
+    ├── frontend/
+    ├── monitoring/
+    ├── nginx/
+    ├── Dockerfile
+    ├── docker-compose.yml
+    ├── Jenkinsfile
+    ├── Jenkinsfile.healthchecks
+    ├── Jenkinsfile.security
+    └── README.md
