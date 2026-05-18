@@ -31,9 +31,9 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
 
-  privileged: true
+    privileged: true
 
-  restart: unless-stopped
+    restart: unless-stopped
 
 
 volumes:
