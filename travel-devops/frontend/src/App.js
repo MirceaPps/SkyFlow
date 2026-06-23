@@ -2,29 +2,13 @@ import React from "react";
 import "./App.css";
 
 function App() {
-  const deals = [
-    {
-      id: 1,
-      title: "Vacanță în Sardinia",
-      price: "187€",
-      image:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
-    },
-    {
-      id: 2,
-      title: "City Break Praga",
-      price: "129€",
-      image:
-        "https://images.unsplash.com/photo-1519677100203-a0e668c92439",
-    },
-    {
-      id: 3,
-      title: "Weekend în Malta",
-      price: "149€",
-      image:
-        "https://images.unsplash.com/photo-1521295121783-8a321d551ad2",
-    },
-  ];
+  const [deals, setDeals] = React.useState([]);
+
+React.useEffect(() => {
+  fetch("/offers.json")
+    .then((res) => res.json())
+    .then((data) => setDeals(data));
+}, []);
 
   return (
     <div className="app">

@@ -193,3 +193,26 @@ body {
 .copyright {
   opacity: 0.7;
 }
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+
+  padding: 50px;
+
+  background: white;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat h3 {
+  font-size: 42px;
+  color: #ff6600;
+}
+
+.stat p {
+  color: #666;
+  margin-top: 10px;
+}
