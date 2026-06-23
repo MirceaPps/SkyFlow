@@ -9,79 +9,112 @@ body {
   background: #f5f7fa;
 }
 
+.navbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 25px 80px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  z-index: 100;
+}
+
+.logo {
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
 .hero {
   height: 70vh;
+
   background-image: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e");
   background-size: cover;
   background-position: center;
+
+  position: relative;
 }
 
-.hero-overlay {
+.overlay {
+  background: rgba(0, 0, 0, 0.35);
+
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,.45);
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-}
 
-.hero-content {
-  text-align: center;
   color: white;
+  text-align: center;
 }
 
-.hero-content h1 {
-  font-size: 72px;
+.overlay h1 {
+  font-size: 80px;
   margin-bottom: 20px;
 }
 
-.hero-content p {
-  font-size: 22px;
-  margin-bottom: 25px;
+.overlay p {
+  font-size: 28px;
+  margin-bottom: 30px;
 }
 
-.hero-btn {
-  padding: 15px 30px;
+.overlay button {
+  background: #ff6600;
+  color: white;
+
   border: none;
   border-radius: 10px;
-  background: #ff5a00;
-  color: white;
-  font-size: 18px;
+
+  padding: 15px 40px;
+
+  font-size: 20px;
   cursor: pointer;
 }
 
-.hero-btn:hover {
-  background: #e64f00;
+.offers {
+  padding: 80px 50px;
 }
 
-.section-title {
+.offers h2 {
   text-align: center;
-  margin-top: 50px;
-}
-
-.section-title h2 {
-  font-size: 34px;
+  font-size: 48px;
+  margin-bottom: 50px;
 }
 
 .deals {
-  max-width: 1300px;
-  margin: 40px auto;
+  max-width: 1200px;
+  margin: 0 auto;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 
   gap: 25px;
-  padding: 20px;
 }
 
 .deal-card {
-  position: relative;
   background: white;
   border-radius: 15px;
+
   overflow: hidden;
 
-  box-shadow: 0 5px 20px rgba(0,0,0,.1);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 
   transition: 0.3s;
 }
@@ -90,23 +123,9 @@ body {
   transform: translateY(-5px);
 }
 
-.badge {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-
-  background: #0c1c4d;
-  color: white;
-
-  padding: 8px 12px;
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
 .deal-card img {
   width: 100%;
-  height: 260px;
+  height: 250px;
   object-fit: cover;
 }
 
@@ -114,39 +133,63 @@ body {
   padding: 20px;
 }
 
+.deal-content span {
+  background: #102c73;
+  color: white;
+
+  padding: 6px 12px;
+  border-radius: 6px;
+
+  font-size: 12px;
+}
+
 .deal-content h3 {
-  margin-bottom: 10px;
+  margin-top: 15px;
+  font-size: 28px;
 }
 
-.db-section {
-  max-width: 1200px;
-  margin: 60px auto;
-  padding: 20px;
+.deal-content p {
+  margin-top: 10px;
+  color: #666;
 }
 
-.db-section h2 {
-  margin-bottom: 25px;
+.deal-content button {
+  margin-top: 20px;
+
+  background: #ff6600;
+  color: white;
+
+  border: none;
+  border-radius: 8px;
+
+  padding: 12px 20px;
+  cursor: pointer;
 }
 
-.flight-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+.footer {
+  background: #111827;
+  color: white;
+
+  text-align: center;
+
+  padding: 60px 20px;
 }
 
-.flight-card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,.08);
+.footer h3 {
+  font-size: 32px;
+  margin-bottom: 15px;
 }
 
-.flight-card h3 {
-  margin-bottom: 10px;
+.socials {
+  margin: 25px 0;
 }
 
-.flight-card p {
-  color: #ff5a00;
-  font-weight: bold;
-  font-size: 20px;
+.socials a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+.copyright {
+  opacity: 0.7;
 }
