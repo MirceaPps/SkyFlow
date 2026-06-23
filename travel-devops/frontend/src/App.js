@@ -3,9 +3,6 @@ import "./App.css";
 
 function App() {
   const [flights, setFlights] = useState([]);
-  const [origin, setOrigin] = useState("");
-  const [destination, setDestination] = useState("");
-  const [price, setPrice] = useState("");
 
   const fetchFlights = () => {
     fetch("/api/flights")
@@ -18,74 +15,93 @@ function App() {
     fetchFlights();
   }, []);
 
-  const addFlight = async (e) => {
-    e.preventDefault();
+  return (
+    <div className="app-container">
 
-    await fetch(
-      `/api/flights?origin=${origin}&destination=${destination}&price=${price}`,
-      {
-        method: "POST",
-      }
-    );
+      <header className="hero">
+        <div className="hero-overlay">
+          <div className="hero-content">
+            <h1>✈ SkyFlow</h1>
 
-    setOrigin("");
-    setDestination("");
-    setPrice("");
+            <p>
+              Vacanțe, city break-uri și oferte last minute la cele mai bune prețuri.
+            </p>
 
-    fetchFlights();
-  };
-
-return (
-  <div className="app-container">
-    <div className="card">
-
-      <h1>✈ Travel DevOps</h1>
-
-      <p className="subtitle">
-        Modern Flight Management Platform
-      </p>
-
-      <div className="form">
-        <input
-          placeholder="Origin"
-          value={origin}
-          onChange={(e) => setOrigin(e.target.value)}
-        />
-
-        <input
-          placeholder="Destination"
-          value={destination}
-          onChange={(e) => setDestination(e.target.value)}
-        />
-
-        <input
-          placeholder="Price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-
-        <button onClick={addFlight}>
-          Add Flight
-        </button>
-      </div>
-
-      <div className="flight-list">
-        {flights.map((flight) => (
-          <div className="flight-card" key={flight.id}>
-            <div className="flight-route">
-              {flight.origin} ✈ {flight.destination}
-            </div>
-
-            <div className="flight-price">
-              €{flight.price}
-            </div>
+            <button className="hero-btn">
+              Vezi ofertele
+            </button>
           </div>
-        ))}
-      </div>
+        </div>
+      </header>
+
+      <section className="section-title">
+        <h2>🔥 Ofertele săptămânii</h2>
+      </section>
+
+      <section className="deals">
+
+        <div className="deal-card">
+          <span className="badge">OFERTĂ</span>
+
+          <img
+            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+            alt="Sardinia"
+          />
+
+          <div className="deal-content">
+            <h3>Vacanță în Sardinia</h3>
+            <p>187€ zbor și cazare 4 nopți</p>
+          </div>
+        </div>
+
+        <div className="deal-card">
+          <span className="badge">OFERTĂ</span>
+
+          <img
+            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
+            alt="Cannes"
+          />
+
+          <div className="deal-content">
+            <h3>Vacanță în Cannes</h3>
+            <p>211€ zbor și cazare 5 nopți</p>
+          </div>
+        </div>
+
+        <div className="deal-card">
+          <span className="badge">OFERTĂ</span>
+
+          <img
+            src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b"
+            alt="Albania"
+          />
+
+          <div className="deal-content">
+            <h3>Vacanță în Albania</h3>
+            <p>143€ zbor și cazare 7 nopți</p>
+          </div>
+        </div>
+
+      </section>
+
+      <section className="db-section">
+        <h2>✈ Oferte din baza de date</h2>
+
+        <div className="flight-list">
+          {flights.map((flight) => (
+            <div className="flight-card" key={flight.id}>
+              <h3>
+                {flight.origin} → {flight.destination}
+              </h3>
+
+              <p>€{flight.price}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
     </div>
-  </div>
-  )
+  );
 }
 
 export default App;
