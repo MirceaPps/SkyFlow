@@ -20,7 +20,7 @@ function App() {
 
         <ul className="nav-links">
           <li><a href="#home">Acasă</a></li>
-          <li><a href="#offers">Oferte</a></li>
+          <li><a href="#offers">Zboruri</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -33,9 +33,7 @@ function App() {
             Vacanțe, city break-uri și oferte last minute la cele mai bune prețuri.
           </p>
 
-          <button>
-            Vezi ofertele
-          </button>
+      
         </div>
       </section>
 
@@ -52,7 +50,7 @@ function App() {
               />
 
               <div className="deal-content">
-                <span>OFERTĂ</span>
+                <span>Zbor</span>
 
                 <h3>{deal.title}</h3>
 
@@ -85,7 +83,6 @@ function App() {
         <div className="socials">
           <a href="/">Facebook</a>
           <a href="/">Instagram</a>
-          <a href="/">TikTok</a>
         </div>
 
         <p className="copyright">
