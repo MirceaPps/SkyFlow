@@ -23,7 +23,7 @@ services:
         condition: service_healthy
     environment:
       DATABASE_URL: postgresql://travel:travel@db:5432/traveldb
-    # Nu expunem portul în afară — nginx face proxy intern
+      ADMIN_SECRET: ${ADMIN_SECRET:-skyflow-admin-2026}
     expose:
       - "8000"
 
@@ -34,6 +34,11 @@ services:
     ports:
       - "80:80"
     depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+
       - backend
 
 volumes:
