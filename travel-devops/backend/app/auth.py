@@ -1,16 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import Admin from './Admin';
+from fastapi import Header, HTTPException
+import os
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+ADMIN_SECRET = os.getenv("ADMIN_SECRET", "skyflow-admin-2026")
 
-// Routing simplu fara react-router: /admin → Admin, altceva → App
-const isAdmin = window.location.pathname.startsWith('/admin');
 
-root.render(
-  <React.StrictMode>
-    {isAdmin ? <Admin /> : <App />}
-  </React.StrictMode>
-);
+def verify_admin(x_admin_secret: str = Header(...)):
+    if x_admin_secret != ADMIN_SECRET:
+        raise HTTPException(status_code=401, detail="Unauthorized")
