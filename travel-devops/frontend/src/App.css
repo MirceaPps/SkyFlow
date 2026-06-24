@@ -41,7 +41,7 @@ body {
 
 /* ── Hero ── */
 .hero {
-  height: 70vh;
+  height: 40vh;
   background-image: url("https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600");
   background-size: cover;
   background-position: center;
@@ -61,13 +61,13 @@ body {
 }
 
 .overlay h1 {
-  font-size: 80px;
-  margin-bottom: 20px;
+  font-size: 52px;
+  margin-bottom: 12px;
 }
 
 .overlay p {
-  font-size: 28px;
-  margin-bottom: 30px;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 .hero-button {
