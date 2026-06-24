@@ -37,13 +37,13 @@ function App() {
       <section className="hero" id="home">
         <div className="overlay">
           <h1>✈ SkyFlow</h1>
-          <p>Vacanțe, city break-uri și oferte last minute la cele mai bune prețuri.</p>
+          <p>Discover the best flight deals</p>
           <a href="#offers" className="hero-button">Vezi ofertele</a>
         </div>
       </section>
 
       <section className="offers" id="offers">
-        <h2>🔥 Ofertele săptămânii</h2>
+        <h2>🔥 Flight deals</h2>
 
         {loading && (
           <div className="status-msg">Se încarcă ofertele...</div>
