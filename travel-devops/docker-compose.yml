@@ -1,84 +1,40 @@
 services:
   db:
     image: postgres:15
+    restart: unless-stopped
     environment:
       POSTGRES_USER: travel
       POSTGRES_PASSWORD: travel
       POSTGRES_DB: traveldb
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U travel -d traveldb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   backend:
     build:
       context: ./backend
+    restart: unless-stopped
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       DATABASE_URL: postgresql://travel:travel@db:5432/traveldb
+    # Nu expunem portul în afară — nginx face proxy intern
+    expose:
+      - "8000"
 
   frontend:
     build:
       context: ./frontend
-    ports:
-      - "8081:80"
-    depends_on:
-      - backend
-
-  prometheus:
-    build:
-      context: ./monitoring
-    ports:
-      - "9090:9090"
-    depends_on:
-      - backend
-
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3001:3000"
-    volumes:
-      - grafana_data:/var/lib/grafana    
-    depends_on:
-      - prometheus
-
-  alertmanager:
-    image: prom/alertmanager
-    ports:
-      - "9093:9093"
-    volumes:
-      - ./monitoring/alertmanager.yml:/etc/alertmanager/alertmanager.yml
-  
-  loki:
-    image: grafana/loki:2.9.0
-    ports:
-      - "3100:3100"
-    command: -config.file=/etc/loki/local-config.yaml
-
-  promtail:
-    image: grafana/promtail:2.9.0
-    volumes:
-      - /var/log:/var/log
-      - ./monitoring/promtail-config.yml:/etc/promtail/config.yml
-    command: -config.file=/etc/promtail/config.yml
-    depends_on:
-      - loki
-
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
-    container_name: cadvisor
-
-    ports:
-      - "8082:8080"
-
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-
-    privileged: true
-
     restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
-  grafana_data:  
