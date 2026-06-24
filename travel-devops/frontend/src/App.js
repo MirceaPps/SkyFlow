@@ -4,11 +4,11 @@ import "./App.css";
 function App() {
   const [deals, setDeals] = React.useState([]);
 
-React.useEffect(() => {
-  fetch("/offers.json")
-    .then((res) => res.json())
-    .then((data) => setDeals(data));
-}, []);
+  React.useEffect(() => {
+    fetch("/offers.json")
+      .then((res) => res.json())
+      .then((data) => setDeals(data));
+  }, []);
 
   return (
     <div className="app">
@@ -45,22 +45,34 @@ React.useEffect(() => {
         <div className="deals">
           {deals.map((deal) => (
             <div className="deal-card" key={deal.id}>
-              <img src={deal.image} alt={deal.title} />
+
+              <img
+                src={deal.image}
+                alt={deal.title}
+              />
 
               <div className="deal-content">
                 <span>OFERTĂ</span>
 
                 <h3>{deal.title}</h3>
 
-                <p>De la {deal.price}</p>
+                <p>{deal.price}</p>
 
-                <button>
-                  Vezi oferta
-                </button>
+                <a
+                  href={deal.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="offer-button"
+                >
+                  Vreau oferta
+                </a>
+
               </div>
+
             </div>
           ))}
         </div>
+
       </section>
 
       <footer className="footer" id="contact">

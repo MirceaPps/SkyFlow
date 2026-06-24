@@ -1,38 +1,9 @@
 [
   {
     "id": 1,
-    "title": "Vacanță în Sardinia",
-    "price": "187€",
-    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
-  },
-  {
-    "id": 2,
-    "title": "Vacanță în Albania",
-    "price": "143€",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
-  },
-  {
-    "id": 3,
-    "title": "City Break Praga",
-    "price": "129€",
-    "image": "https://images.unsplash.com/photo-1519677100203-a0e668c92439"
-  },
-  {
-    "id": 4,
-    "title": "Vacanță în Malta",
-    "price": "149€",
-    "image": "https://images.unsplash.com/photo-1521295121783-8a321d551ad2"
-  },
-  {
-    "id": 5,
-    "title": "Vacanță în Creta",
-    "price": "199€",
-    "image": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21"
-  },
-  {
-    "id": 6,
-    "title": "Tenerife Last Minute",
-    "price": "239€",
-    "image": "https://images.unsplash.com/photo-1468413253725-0d5181091126"
+    "title": "Zadar, Croația",
+    "price": "375 lei dus-întors",
+    "image": "https://images.unsplash.com/photo-1578301978018-3005759f48f7",
+    "link": "https://www.skyscanner.ro/transport/zboruri/buch/zada/260730/260806/?adultsv2=1&cabinclass=economy&childrenv2=&ref=home&rtn=1&preferdirects=true&outboundaltsenabled=false&inboundaltsenabled=false"
   }
 ]

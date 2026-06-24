@@ -216,3 +216,21 @@ body {
   color: #666;
   margin-top: 10px;
 }
+.offer-button {
+  display: inline-block;
+  margin-top: 20px;
+
+  background: #ff6600;
+  color: white;
+
+  text-decoration: none;
+  border-radius: 8px;
+
+  padding: 12px 20px;
+
+  font-weight: bold;
+}
+
+.offer-button:hover {
+  opacity: 0.9;
+}
