@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Admin.css";
 
 const API = "/api/flights";
+const UPLOAD_API = "/api/uploads/";
 
 export default function Admin() {
   const [secret, setSecret] = useState(localStorage.getItem("admin_secret") || "");
@@ -15,6 +16,9 @@ export default function Admin() {
 
   const [editingId, setEditingId] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [uploading, setUploading] = useState(false);
+
+  const fileInputRef = useRef();
 
   const emptyForm = {
     origin: "București",
@@ -70,6 +74,36 @@ export default function Admin() {
     loadFlights();
   }
 
+  // ── Upload poză ───────────────────────────────────────
+  async function handleImageUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch(UPLOAD_API, {
+        method: "POST",
+        headers: { "x-admin-secret": secret },
+        body: formData,
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setForm((f) => ({ ...f, image: data.url }));
+        flash("Poză încărcată!", "success");
+      } else {
+        flash(data.detail || "Eroare upload.", "error");
+      }
+    } catch {
+      flash("Eroare la upload.", "error");
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  // ── Submit ofertă ─────────────────────────────────────
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
@@ -79,7 +113,6 @@ export default function Admin() {
       price: parseFloat(form.price),
     };
 
-    // Auto-completează price_label dacă e gol
     if (!payload.price_label) {
       payload.price_label = `${payload.price} lei dus-întors`;
     }
@@ -130,15 +163,11 @@ export default function Admin() {
   }
 
   function flash(msg, type) {
-    if (type === "success") setSuccess(msg);
-    else setError(msg);
-    setTimeout(() => {
-      setSuccess("");
-      setError("");
-    }, 3000);
+    if (type === "success") { setSuccess(msg); setError(""); }
+    else { setError(msg); setSuccess(""); }
+    setTimeout(() => { setSuccess(""); setError(""); }, 3000);
   }
 
-  // Auto-login dacă avem secretul salvat
   useEffect(() => {
     if (secret) handleLogin({ preventDefault: () => {} });
     // eslint-disable-next-line
@@ -170,24 +199,20 @@ export default function Admin() {
   return (
     <div className="admin-page">
 
-      {/* Header */}
       <div className="admin-header">
         <h1>✈ SkyFlow Admin</h1>
         <div className="admin-header-actions">
           <a href="/" target="_blank" rel="noreferrer" className="btn-secondary">
             Vezi site ↗
           </a>
-          <button className="btn-secondary" onClick={handleLogout}>
-            Logout
-          </button>
+          <button className="btn-secondary" onClick={handleLogout}>Logout</button>
         </div>
       </div>
 
-      {/* Notificări */}
       {success && <div className="admin-flash success">{success}</div>}
       {error   && <div className="admin-flash error">{error}</div>}
 
-      {/* Formular adaugă / editează */}
+      {/* Formular */}
       {showForm ? (
         <div className="admin-form-card">
           <h2>{editingId ? "✏️ Editează ofertă" : "➕ Ofertă nouă"}</h2>
@@ -197,7 +222,7 @@ export default function Admin() {
               <label>Destinație *</label>
               <input
                 required
-                placeholder="ex: Paris, Franța"
+                placeholder="ex: Dubrovnik, Croația"
                 value={form.destination}
                 onChange={(e) => setForm({ ...form, destination: e.target.value })}
               />
@@ -223,17 +248,35 @@ export default function Admin() {
               />
             </div>
 
+            {/* Upload poză */}
             <div className="form-row">
-              <label>URL poză *</label>
+              <label>Poză destinație *</label>
+
+              <div className="upload-zone" onClick={() => fileInputRef.current.click()}>
+                {uploading ? (
+                  <span>⏳ Se încarcă...</span>
+                ) : form.image ? (
+                  <img src={form.image} alt="preview" className="img-preview" />
+                ) : (
+                  <span>📁 Click pentru a încărca o poză (JPG, PNG, WEBP)</span>
+                )}
+              </div>
+
               <input
-                required
-                placeholder="https://images.unsplash.com/..."
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                style={{ display: "none" }}
+                onChange={handleImageUpload}
+              />
+
+              {/* Sau URL manual */}
+              <input
+                placeholder="Sau lipește un URL de imagine..."
                 value={form.image}
                 onChange={(e) => setForm({ ...form, image: e.target.value })}
+                style={{ marginTop: 8 }}
               />
-              {form.image && (
-                <img src={form.image} alt="preview" className="img-preview" />
-              )}
             </div>
 
             <div className="form-row">
@@ -245,19 +288,14 @@ export default function Admin() {
                 onChange={(e) => setForm({ ...form, skyscanner_url: e.target.value })}
               />
               {form.skyscanner_url && (
-                <a
-                  href={form.skyscanner_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="link-preview"
-                >
+                <a href={form.skyscanner_url} target="_blank" rel="noreferrer" className="link-preview">
                   Testează link ↗
                 </a>
               )}
             </div>
 
             <div className="form-actions">
-              <button type="submit" className="btn-primary">
+              <button type="submit" className="btn-primary" disabled={uploading}>
                 {editingId ? "Salvează" : "Adaugă ofertă"}
               </button>
               <button type="button" className="btn-secondary" onClick={cancelForm}>
@@ -276,7 +314,7 @@ export default function Admin() {
         </div>
       )}
 
-      {/* Lista oferte */}
+      {/* Tabel oferte */}
       {loading ? (
         <p className="admin-loading">Se încarcă...</p>
       ) : (
@@ -298,28 +336,18 @@ export default function Admin() {
                     <img src={f.image} alt={f.destination} className="table-thumb" />
                   </td>
                   <td>
-                    <strong>{f.destination}</strong>
-                    <br />
+                    <strong>{f.destination}</strong><br />
                     <small>din {f.origin}</small>
                   </td>
                   <td>{f.price_label}</td>
                   <td>
-                    <a
-                      href={f.skyscanner_url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="sky-link"
-                    >
+                    <a href={f.skyscanner_url} target="_blank" rel="noreferrer" className="sky-link">
                       Skyscanner ↗
                     </a>
                   </td>
                   <td className="td-actions">
-                    <button className="btn-edit" onClick={() => startEdit(f)}>
-                      Editează
-                    </button>
-                    <button className="btn-delete" onClick={() => handleDelete(f.id)}>
-                      Șterge
-                    </button>
+                    <button className="btn-edit" onClick={() => startEdit(f)}>Editează</button>
+                    <button className="btn-delete" onClick={() => handleDelete(f.id)}>Șterge</button>
                   </td>
                 </tr>
               ))}
