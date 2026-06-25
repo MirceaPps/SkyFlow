@@ -26,7 +26,6 @@ function App() {
     <div className="app">
 
       <nav className="navbar">
-        <div className="logo">✈ SkyFlow</div>
         <ul className="nav-links">
           <li><a href="#home">Acasă</a></li>
           <li><a href="#offers">Zboruri</a></li>
