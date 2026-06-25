@@ -24,6 +24,8 @@ services:
     environment:
       DATABASE_URL: postgresql://travel:travel@db:5432/traveldb
       ADMIN_SECRET: ${ADMIN_SECRET:-skyflow-admin-2026}
+    volumes:
+      - uploads_data:/app/uploads
     expose:
       - "8000"
 
@@ -38,8 +40,5 @@ services:
 
 volumes:
   postgres_data:
+  uploads_data:
 
-      - backend
-
-volumes:
-  postgres_data:
