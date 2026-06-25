@@ -71,7 +71,7 @@ function App() {
                   rel="noopener noreferrer"
                   className="offer-button"
                 >
-                  Vreau oferta
+                  Vreau zborul
                 </a>
               </div>
             </div>
