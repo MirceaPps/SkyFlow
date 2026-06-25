@@ -288,3 +288,32 @@
   padding: 40px;
   color: #94a3b8;
 }
+
+/* ── Upload Zone ── */
+.upload-zone {
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 14px;
+  transition: border-color 0.2s, background 0.2s;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-zone:hover {
+  border-color: #ff6600;
+  background: #fff7f0;
+}
+
+.upload-zone .img-preview {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin: 0;
+}
