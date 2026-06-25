@@ -1,11 +1,19 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from .database import engine, Base, SessionLocal
 from .models import Flight
-from .routers import flights
-import time
+from .routers import flights, uploads
+import os, time
 
-app = FastAPI(title="SkyFlow API")
+UPLOAD_DIR = "/app/uploads"
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+app = FastAPI(
+    title="SkyFlow API",
+    docs_url=None,
+    redoc_url=None,
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,9 +23,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Servește pozele uploadate direct din backend
+app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
+
 
 def seed_flights(db):
-    """Populează DB cu oferte dacă e goală."""
     if db.query(Flight).count() > 0:
         return
     offers = [
@@ -60,7 +70,7 @@ def seed_flights(db):
             destination="Amsterdam, Olanda",
             price=550.0,
             price_label="550 lei dus-întors",
-            image="https://images.unsplash.com/photo-1468557929903-2d1c5ffa8ce4?w=800",
+            image="https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=800",
             skyscanner_url=(
                 "https://www.skyscanner.ro/transport/zboruri/buch/ams/"
                 "260901/260908/?adultsv2=1&cabinclass=economy&ref=home&rtn=1"
@@ -114,6 +124,7 @@ def startup():
 
 
 app.include_router(flights.router)
+app.include_router(uploads.router)
 
 
 @app.get("/")
