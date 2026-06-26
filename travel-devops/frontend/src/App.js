@@ -35,7 +35,7 @@ function App() {
 
       <section className="hero" id="home">
         <div className="overlay">
-          <h1>✈ SkyFlow</h1>
+          <h1>SkyFlow</h1>
           <p>Discover the best flight deals</p>
           <a href="#offers" className="hero-button">Vezi ofertele</a>
         </div>
