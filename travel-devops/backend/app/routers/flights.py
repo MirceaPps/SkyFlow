@@ -55,7 +55,7 @@ class FlightOut(BaseModel):
 # GET public - fara autentificare (site-ul public citeste de aici)
 @router.get("/", response_model=list[FlightOut])
 def get_flights(db: Session = Depends(get_db)):
-    return db.query(Flight).all()
+    return db.query(Flight).order_by(Flight.id.desc()).all()
 
 
 # Restul sunt protejate cu admin secret
